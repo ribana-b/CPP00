@@ -6,17 +6,12 @@
 /*   By: ribana-b <ribana-b@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 09:08:06 by ribana-b          #+#    #+# Malaga      */
-/*   Updated: 2024/09/14 09:51:17 by ribana-b         ###   ########.com      */
+/*   Updated: 2024/09/14 18:01:56 by ribana-b         ###   ########.com      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 # define UTILS_HPP
-
-/* @------------------------------------------------------------------------@ */
-/* |                            Define Section                              | */
-/* @------------------------------------------------------------------------@ */
-
 
 /* @------------------------------------------------------------------------@ */
 /* |                            Include Section                             | */
@@ -34,9 +29,9 @@ class Utils
 {
 	public:
 		static int	stoi(std::string str);
-		static bool is_success();
+		static bool	is_success(void);
 	private:
-		static bool	isSuccess;
+		static bool	_isSuccess;
 };
 
 #endif // UTILS_HPP

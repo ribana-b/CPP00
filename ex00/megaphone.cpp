@@ -4,8 +4,9 @@ int	main(int argc, char **argv)
 {
 	for (int i = 1; i < argc; ++i)
 	{
-		for (int j = 0; argv[i][j]; ++j)
-			std::cout << (unsigned char)std::toupper(argv[i][j]);
+		std::string	arg = argv[i];
+		for (std::size_t j = 0; j < arg.length(); ++j)
+			std::cout << static_cast<unsigned char>(std::toupper(arg[j]));
 		if (i < argc - 1)
 			std::cout << " ";
 		else

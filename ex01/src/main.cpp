@@ -6,7 +6,7 @@
 /*   By: ribana-b <ribana-b@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 22:41:20 by ribana-b          #+#    #+# Malaga      */
-/*   Updated: 2024/09/14 10:39:30 by ribana-b         ###   ########.com      */
+/*   Updated: 2024/09/14 18:06:40 by ribana-b         ###   ########.com      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main()
 {
-	PhoneBook phoneBook;
-	std::string option;
+	PhoneBook	phoneBook;
+	std::string	option;
 
 	std::cout << "Welcome to the PhoneBook\n";
 	while (option.compare("EXIT") != 0)
@@ -31,10 +31,10 @@ int	main()
 			phoneBook.add_contact();
 		else if (option.compare("SEARCH") == 0)
 			phoneBook.search_contact();
+		else if (option.compare("EXIT") != 0)
+			std::cerr << "Invalid command, try [ADD, EXIT, SEARCH]" << std::endl;
 		else if (option.empty())
-			std::cout << "You should try a command [ADD, SEARCH]" << std::endl;
-		else
-			std::cerr << "Invalid command, try [ADD, SEARCH]" << std::endl;
+			std::cout << "You should try a command [ADD, EXIT, SEARCH]" << std::endl;
 		if (std::cin.eof())
 		{
 			std::cerr << "\nClosing PhoneBook..." << std::endl;

@@ -6,7 +6,7 @@
 /*   By: ribana-b <ribana-b@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 06:08:24 by ribana-b          #+#    #+# Malaga      */
-/*   Updated: 2024/09/14 13:27:52 by ribana-b         ###   ########.com      */
+/*   Updated: 2024/09/14 18:01:50 by ribana-b         ###   ########.com      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@
 class PhoneBook
 {
 	public:
-		void	add_contact();
-		void	search_contact();
+		void	add_contact(void);
+		void	search_contact(void);
 	private:
-		void	display_table();
-		bool	is_full_capacity();
-		Contact	contact[MAX_CAPACITY];
-		int		counter;
+		void	_display_table(void);
+		bool	_is_full_capacity(void);
+		Contact	_contact[MAX_CAPACITY];
+		int		_counter;
 };
 
 #endif // PHONEBOOK_HPP
