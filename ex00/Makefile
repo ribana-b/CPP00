@@ -49,11 +49,11 @@ SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJ = $(patsubst $(SRC_DIR)%.cpp, $(OBJ_DIR)%.o, $(SRC))
 
-CC := g++
-CFLAGS := -Wall -Wextra -Werror -std=c++98
+CXX := clang++
+CXXFLAGS := -Wall -Wextra -Werror -std=c++98
 
 ifdef WITH_DEBUG
-	CFLAGS += -ggdb -DDEBUG=1
+	CXXFLAGS += -ggdb -DDEBUG=1
 endif
 
 CPPFLAGS := -I $(INCLUDE_DIR)
@@ -78,7 +78,7 @@ all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
 	$(OBJ_MSG)
-	@$(CC) $(OBJ) -o $(NAME)
+	@$(CXX) $(OBJ) -o $(NAME)
 	$(OUTPUT_MSG)
 
 $(OBJ_DIR):
@@ -86,7 +86,7 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(INCLUDE)
 	$(COMPILE_MSG)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean:
 	@$(RM) $(OBJ_DIR)
