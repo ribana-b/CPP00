@@ -6,7 +6,7 @@
 /*   By: ribana-b <ribana-b@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:01:41 by ribana-b          #+#    #+# Malaga      */
-/*   Updated: 2024/09/15 13:35:19 by ribana-b         ###   ########.com      */
+/*   Updated: 2024/10/07 10:23:26 by ribana-b         ###   ########.com      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,18 @@ void	Account::_displayTimestamp(void)
 	std::cout << "] ";
 }
 
+Account::Account(void)
+{
+	_accountIndex = 0;
+	_amount = 0;
+	_nbDeposits = 0;
+	_nbWithdrawals = 0;
+}
+
 Account::Account(int initial_deposit)
 {
+	_nbDeposits = 0;
+	_nbWithdrawals = 0;
 	_accountIndex = _nbAccounts;
 	_totalAmount += initial_deposit;
 	_amount = initial_deposit;

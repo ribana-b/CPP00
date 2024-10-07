@@ -6,7 +6,7 @@
 /*   By: ribana-b <ribana-b@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 22:58:19 by ribana-b          #+#    #+# Malaga      */
-/*   Updated: 2024/09/14 18:03:13 by ribana-b         ###   ########.com      */
+/*   Updated: 2024/10/07 10:19:07 by ribana-b         ###   ########.com      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,10 @@ static std::string	format_string(std::string str, const std::size_t max_width)
 	return (str.substr(0, max_width));
 }
 
-bool PhoneBook::_is_full_capacity(void)
-{
-	if (_counter >= MAX_CAPACITY)
-	{
-		std::cerr << "You reached the max capacity (" << MAX_CAPACITY << " contacts)" << std::endl;
-		return (true);
-	}
-	return (false);
-}
-
 void PhoneBook::add_contact(void)
 {
-	if (_is_full_capacity())
-		return ;
+	if (_counter >= MAX_CAPACITY)
+		std::cout << "You reached the max capacity (" << MAX_CAPACITY << "), replacing the oldest one..." << std::endl;
 	std::string firstName = prompt_for_x_name("first");
 	if (std::cin.eof())
 		return ;
@@ -120,11 +110,13 @@ void PhoneBook::add_contact(void)
 	std::string darkestSecret = prompt_for_value("darkest secret");
 	if (std::cin.eof())
 		return ;
-	_contact[_counter].set_first_name(firstName);
-	_contact[_counter].set_last_name(lastName);
-	_contact[_counter].set_phone_number(phoneNumber);
-	_contact[_counter].set_nickname(nickname);
-	_contact[_counter].set_darkest_secret(darkestSecret);
+	std::cout << "DEBUG " << _counter << std::endl;
+	std::cout << "DEBUG " << (_counter % MAX_CAPACITY) << std::endl;
+	_contact[_counter % MAX_CAPACITY].set_first_name(firstName);
+	_contact[_counter % MAX_CAPACITY].set_last_name(lastName);
+	_contact[_counter % MAX_CAPACITY].set_phone_number(phoneNumber);
+	_contact[_counter % MAX_CAPACITY].set_nickname(nickname);
+	_contact[_counter % MAX_CAPACITY].set_darkest_secret(darkestSecret);
 	_counter++;
 }
 
@@ -139,7 +131,9 @@ void	PhoneBook::_display_table(void)
 	std::cout << "|";
 	std::cout << std::setw(10) << "Nickname";
 	std::cout << std::endl;
-	for (int i = 0; i < _counter; ++i)
+	int	maxIndex = _counter;
+	if (maxIndex > MAX_CAPACITY) maxIndex = MAX_CAPACITY;
+	for (int i = 0; i < maxIndex; ++i)
 	{
 		const std::size_t max_width = 10;
 		std::cout << "___________________________________________" << std::endl;
@@ -171,14 +165,19 @@ void PhoneBook::search_contact(void)
 		std::cout << "Invalid number" << std::endl;
 		return ;
 	}
-	if (index < 1 || index > 9)
+	if (index < 1 || index > MAX_CAPACITY + 1)
 	{
-		std::cerr << "Invalid index, it must be [1-9]\n";
+		std::cerr << "Invalid index, it must be [1-" << MAX_CAPACITY << "]" << std::endl;
 		return ;
 	}
-	if (index > _counter)
+	int	maxIndex = _counter;
+	if (maxIndex > MAX_CAPACITY) maxIndex = MAX_CAPACITY;
+	if (index > maxIndex)
 	{
-		std::cerr << "Invalid index, you have " << _counter << ((_counter == 1) ? " contact!" : " contacts!") << std::endl;
+		if (maxIndex == 1)
+			std::cerr << "Invalid index, you have " << maxIndex << " contact!" << std::endl;
+		else
+			std::cerr << "Invalid index, you have " << maxIndex << " contacts!" << std::endl;
 		return ;
 	}
 	--index;
@@ -186,4 +185,9 @@ void PhoneBook::search_contact(void)
 	std::cout << "First name:" << _contact[index].get_first_name() << std::endl;
 	std::cout << "Last name:" << _contact[index].get_last_name() << std::endl;
 	std::cout << "Nickname:" << _contact[index].get_nickname() << std::endl;
+}
+
+PhoneBook::PhoneBook()
+{
+	_counter = 0;
 }
